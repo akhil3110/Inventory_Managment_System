@@ -19,7 +19,7 @@ const Login = () => {
   const handleLogin = async () => {
     if (variant === "LOGIN") {
       const response = await axios.post(
-        "http://localhost:5000/api/user/login",
+        "https://inventrot-managment-system.onrender.com/api/user/login",
         loginForm
       ).catch(() => {
         toast.error("Please Enter Valid Details!", {
@@ -40,7 +40,7 @@ const Login = () => {
       }
     } else if (variant === "REGISTER") {
       const response = await axios
-        .post("http://localhost:5000/api/user/register", loginForm)
+        .post("https://inventrot-managment-system.onrender.com/api/user/register", loginForm)
         .catch(() => {
           toast.error("Please Enter Valid Credentials!", {
             position: "top-center",

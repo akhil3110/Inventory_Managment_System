@@ -20,7 +20,7 @@ function Home() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("http://localhost:5000/api/inventory", {
+      const response = await fetch("https://inventrot-managment-system.onrender.com/api/inventory", {
         method: "GET",
         headers: {
           "auth-token": localStorage.getItem("token"),
@@ -37,7 +37,7 @@ function Home() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:5000/api/inventory/addSlug",
+        "https://inventrot-managment-system.onrender.com/api/inventory/addSlug",
         {
           method: "POST",
           headers: {
@@ -57,7 +57,7 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
-    const response = await fetch("http://localhost:5000/api/inventory", {
+    const response = await fetch("https://inventrot-managment-system.onrender.com/api/inventory", {
       method: "GET",
       headers: {
         "auth-token": localStorage.getItem("token"),
@@ -71,7 +71,7 @@ function Home() {
     try {
       
       const response = await fetch(
-        `http://localhost:5000/api/inventory/updateSlug/${id}`,
+        `https://inventrot-managment-system.onrender.com/api/inventory/updateSlug/${id}`,
         {
           method: "PUT",
           headers: {
@@ -90,7 +90,7 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
-    const response = await fetch("http://localhost:5000/api/inventory", {
+    const response = await fetch("https://inventrot-managment-system.onrender.com/api/inventory", {
       method: "GET",
       headers: {
         "auth-token": localStorage.getItem("token"),
@@ -122,7 +122,7 @@ function Home() {
       setLoading(true);
       setDropDown([]);
       const response = await fetch(
-        `http://localhost:5000/api/inventory/search?slug=${query}`,
+        `https://inventrot-managment-system.onrender.com/api/inventory/search?slug=${query}`,
         {
           headers: {
             "auth-token": localStorage.getItem("token"),
@@ -163,7 +163,7 @@ function Home() {
     console.log(action, slug, initialQuantiy);
     setLoadingAction(true);
 
-    const response = await fetch("http://localhost:5000/api/inventory/action", {
+    const response = await fetch("https://inventrot-managment-system.onrender.com/api/inventory/action", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +183,7 @@ function Home() {
         setDeleteLoading(true);
         setShowDeleteModal(true);
         const response = await fetch(
-          `http://localhost:5000/api/inventory/deleteSlug/${id}`,
+          `https://inventrot-managment-system.onrender.com/api/inventory/deleteSlug/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -200,7 +200,7 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
-    const response = await fetch("http://localhost:5000/api/inventory", {
+    const response = await fetch("https://inventrot-managment-system.onrender.com/api/inventory", {
       method: "GET",
       headers: {
         "auth-token": localStorage.getItem("token"),
