@@ -10,6 +10,5 @@
   <rect x="55" y="40" width="10" height="25" fill="#2D70FF" />
   <rect x="70" y="50" width="10" height="15" fill="#2D70FF" />
 
-  <!-- Text -->
-  <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" fill="#FFFFFF" font-size="14" font-family="Arial">Inventory Pro</text>
+ 
 </svg>

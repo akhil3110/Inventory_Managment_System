@@ -1,13 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Login.css";
 
 
 const Login = () => {
   
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
+  const [passwordType, setPasswordType] = useState("password");
   const [variant, setVariant] = useState("LOGIN");
 
   const [loginForm, setLoginForm] = useState({});
@@ -16,12 +19,19 @@ const Login = () => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
   };
 
+  useEffect(()=>{
+    setLoader(false);
+    setLoginForm({})
+  },[])
+
   const handleLogin = async () => {
+    setLoader(true);
     if (variant === "LOGIN") {
       const response = await axios.post(
         "https://inventrot-managment-system.onrender.com/api/user/login",
         loginForm
       ).catch(() => {
+        setLoader(false);
         toast.error("Please Enter Valid Details!", {
           position: "top-center",
           autoClose: 5000,
@@ -32,9 +42,7 @@ const Login = () => {
           theme: "light",
         });
       });
-
       await localStorage.setItem("token", response.data.token)
-
       if (response.data.status) {
         navigate("/home");
       }
@@ -42,6 +50,7 @@ const Login = () => {
       const response = await axios
         .post("https://inventrot-managment-system.onrender.com/api/user/register", loginForm)
         .catch(() => {
+          setLoader(false);
           toast.error("Please Enter Valid Credentials!", {
             position: "top-center",
             autoClose: 5000,
@@ -66,14 +75,37 @@ const Login = () => {
           });
           navigate("/home")
         }
-
-      
+        setLoader(false);
     }
   };
 
+  const togglePasword = () => {
+    if(passwordType == "password"){
+      setPasswordType("text")
+    }
+    else{
+      setPasswordType("password")
+    }
+  }
+
   return (
     <>
-    <ToastContainer
+    {loader &&(
+     <div className=" h-screen bg-slate-300">
+    <div className="absolute top-[40%] left-[48%]">
+    <div className="spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    </div>
+    </div>
+    )
+    }
+      <ToastContainer
                 position="top-center"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -135,13 +167,16 @@ const Login = () => {
               <label className="block mb-2">Password</label>
               <input
                 onChange={handleChange}
-                type="password"
+                type={passwordType}
                 className="px-4 py-2 mb-2 w-full border border-gray-400 rounded"
                 placeholder="Enter Password"
                 name="password"
                 value={loginForm.password || ""}
               />
-
+              <div className="flex items-center mb-4">
+              <input id="default-checkbox" type="checkbox" onClick={togglePasword} value="showPassword" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+              <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Show Password</label>
+              </div>
               <div className=" text-gray-600 text-sm">
                 {variant === "REGISTER" ? (
                   <div>
